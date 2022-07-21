@@ -1,0 +1,16 @@
+{
+  "ITEMS": {
+    "GOLD": 0,
+    "CORN": 0,
+    "TURNIP": 0,
+    "CARROT": 0,
+    "STRAWBERRY": 0,
+    "CORN_SEED": 5,
+    "TURNIP_SEED": 5,
+    "CARROT_SEED": 5,
+    "STRAWBERRY_SEED": 5
+  },
+  "TIME": {
+
+  }
+}

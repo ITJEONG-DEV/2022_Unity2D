@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: CROPS
+    uniqueID: 2831739813
+    locked: 0
   - name: ICON
     uniqueID: 3110963693
     locked: 0

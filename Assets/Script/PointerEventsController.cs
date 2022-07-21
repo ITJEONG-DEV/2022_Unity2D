@@ -28,7 +28,7 @@ public class PointerEventsController : MonoBehaviour, IPointerEnterHandler, IPoi
 
     void OnClickButton()
     {
-        mainUI.SetSelectedOption(name);
+        mainUI.SendMessage("SetSelectedOption", name);
     }
 
     void RenewCountText()
