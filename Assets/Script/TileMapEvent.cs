@@ -29,7 +29,7 @@ public class TileMapEvent : MonoBehaviour
             {
                 var pos = farmGround.GetCellCenterWorld(tpos);
                 mainUI.SendMessage("OnClickFarmGround", pos);
-                Debug.Log($"world: ({worldPoint.x}, {worldPoint.y}), tpos: ({tpos.x},{tpos.y}), wpos: ({pos.x}, {pos.y})");
+                //Debug.Log($"world: ({worldPoint.x}, {worldPoint.y}), tpos: ({tpos.x},{tpos.y}), wpos: ({pos.x}, {pos.y})");
             }
 
         }

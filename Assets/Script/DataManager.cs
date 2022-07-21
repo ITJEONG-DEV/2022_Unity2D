@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -7,6 +8,10 @@ public class DataManager : MonoBehaviour
     Items items;
     string path;
 
+    public delegate void itemChanged(DataDefine.ICONS icon, int num);
+
+    itemChanged itemChangedEventHandler;
+
     private void Start()
     {
         Data data = new Data();
@@ -15,12 +20,31 @@ public class DataManager : MonoBehaviour
         path = Application.dataPath + "/data.json";
 
         Debug.Log($"path: {path}");
+
+        Invoke("Load", 0.1f);
     }
 
     void Load()
     {
-        string str = File.ReadAllText(path);
-        JsonUtility.FromJson<Data>(str);
+        try
+        {
+            string str = File.ReadAllText(path);
+            JsonUtility.FromJson<Data>(str);
+        }catch(Exception e)
+        {
+            Debug.Log(e.Message);
+        }
+
+        Debug.Log("Load()");
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.GOLD, items.gold);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN, items.corn);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN_SEED, items.corn_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP, items.turnip);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP_SEED, items.turnip_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT, items.carrot);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT_SEED, items.carrot_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY, items.strawberry);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY_SEED, items.strawberry_seed);
     }
 
     void Save()
@@ -61,71 +85,87 @@ public class DataManager : MonoBehaviour
         switch (item)
         {
             case DataDefine.ITEMS.GOLD:
-                if (items.gold + num > 0)
+                if (items.gold + num >= 0)
                 {
                     items.gold += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.GOLD, items.gold);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.CORN:
-                if (items.corn + num > 0)
+                if (items.corn + num >= 0)
                 {
                     items.corn += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN, items.corn);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.CORN_SEED:
-                if (items.corn_seed + num > 0)
+                if (items.corn_seed + num >= 0)
                 {
                     items.corn_seed += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN_SEED, items.corn_seed);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.TURNIP:
-                if (items.turnip + num > 0)
+                if (items.turnip + num >= 0)
                 {
                     items.turnip += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP, items.turnip);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.TURNIP_SEED:
-                if (items.turnip_seed + num > 0)
+                if (items.turnip_seed + num >= 0)
                 {
                     items.turnip_seed += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP_SEED, items.turnip_seed);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.CARROT:
-                if (items.carrot + num > 0)
+                if (items.carrot + num >= 0)
                 {
                     items.carrot += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT, items.carrot);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.CARROT_SEED:
-                if (items.carrot_seed + num > 0)
+                if (items.carrot_seed + num >= 0)
                 {
                     items.carrot_seed += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT_SEED, items.carrot_seed);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.STRAWBERRY:
-                if (items.strawberry + num > 0)
+                if (items.strawberry + num >= 0)
                 {
                     items.strawberry += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY, items.strawberry);
                     return true;
                 }
                 else return false;
             case DataDefine.ITEMS.STRAWBERRY_SEED:
-                if (items.strawberry_seed + num > 0)
+                if (items.strawberry_seed + num >= 0)
                 {
                     items.strawberry_seed += num;
+                    itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY_SEED, items.strawberry_seed);
                     return true;
                 }
                 else return false;
             default:
                 return false;
         }
+
+
+    }
+
+    public void AddItemChangedEventHandler(itemChanged handler)
+    {
+        itemChangedEventHandler += handler;
     }
 }
 
@@ -137,6 +177,11 @@ public class Data
     public Data()
     {
         items = new Items();
+
+        items.corn_seed = 5;
+        items.turnip_seed = 5;
+        items.carrot_seed = 5;
+        items.strawberry_seed = 5;
     }
 }
 

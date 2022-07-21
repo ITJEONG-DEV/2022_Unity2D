@@ -9,12 +9,12 @@ public class PointerEventsController : MonoBehaviour, IPointerEnterHandler, IPoi
 {
     public Sprite baseSprite;
     public Sprite overSprite;
-    public string name;
-    public int count;
-
     Text countText;
 
     public MainUI mainUI;
+
+    DataDefine.ICONS icon;
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -28,37 +28,70 @@ public class PointerEventsController : MonoBehaviour, IPointerEnterHandler, IPoi
 
     void OnClickButton()
     {
-        mainUI.SendMessage("SetSelectedOption", name);
+        mainUI.SetSelectedOption(icon);
     }
 
-    void RenewCountText()
+    void RenewCountText(DataDefine.ICONS icon, int num)
     {
-        if (countText == null || count == -1)
-            return;
-
-        countText.text = count.ToString();
+        //Debug.Log($"RenewCountText({icon}, {num})");
+        if (this.icon == icon)
+            countText.text = num.ToString();
     }
 
     void Start()
     {
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
 
+        mainUI.AddItemChangedEventHandler(RenewCountText);
+
         try
         {
             countText = this.transform.GetChild(0).GetComponent<Text>();
-            RenewCountText();
         }
         catch(Exception e)
         {
             Debug.Log(e);
         }
+
+        SetItemType();
+
         this.GetComponent<Button>().onClick.AddListener(OnClickButton);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetItemType()
     {
-        
+        switch(this.gameObject.name)
+        {
+            case "CORN":
+                icon = DataDefine.ICONS.CORN;
+                break;
+            case "TURNIP":
+                icon = DataDefine.ICONS.TURNIP;
+                break;
+            case "CARROT":
+                icon = DataDefine.ICONS.CARROT;
+                break;
+            case "STRAWBERRY":
+                icon = DataDefine.ICONS.STRAWBERRY;
+                break;
+            case "CORN_SEED":
+                icon = DataDefine.ICONS.CORN_SEED;
+                break;
+            case "TURNIP_SEED":
+                icon = DataDefine.ICONS.TURNIP_SEED;
+                break;
+            case "CARROT_SEED":
+                icon = DataDefine.ICONS.CARROT_SEED;
+                break;
+            case "STRAWBERRY_SEED":
+                icon = DataDefine.ICONS.STRAWBERRY_SEED;
+                break;
+            case "SICKLE":
+                icon = DataDefine.ICONS.SICKLE;
+                break;
+            case "WATERING_CAN":
+                icon = DataDefine.ICONS.WATERING_CAN;
+                break;
+        }
     }
-
 }

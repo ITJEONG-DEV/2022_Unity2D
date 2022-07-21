@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class MainUI : MonoBehaviour
 {
     public GameObject icons;
+    public Text gold;
 
     DataManager dataManager;
     CropManager cropManager;
@@ -14,18 +15,23 @@ public class MainUI : MonoBehaviour
     public Sprite[] spritesforCursor;
     Texture2D[] textureListforCursor;
 
-
-    string option = "DEFAULT";
+    DataDefine.ICONS option = DataDefine.ICONS.DEFAULT;
 
     void Start()
     {
-        dataManager = GetComponent<DataManager>();
         cropManager = GetComponent<CropManager>();
+        dataManager = GetComponent<DataManager>();
 
         icons = GameObject.Find("[ICONS]");
+        for (int i = 0; i < icons.transform.childCount; i++)
+            icons.transform.GetChild(i).gameObject.SetActive(true);
+
+        gold = GameObject.Find("GOLD").GetComponent<Text>();
+        AddItemChangedEventHandler(RenewGoldText);
 
         // 마우스 커서 모양 변경을 위한 텍스쳐 설정
         SetTexturesForCursor();
+
 
     }
 
@@ -33,6 +39,18 @@ public class MainUI : MonoBehaviour
     {
         // ESC를 누르는 경우, default 상태로 변경
         OnClickESC();
+    }
+
+    void RenewGoldText(DataDefine.ICONS icons, int numm)
+    {
+        if (icons == DataDefine.ICONS.GOLD)
+            gold.text = numm + " G";
+
+    }
+
+    public void AddItemChangedEventHandler(DataManager.itemChanged handler)
+    {
+        dataManager.AddItemChangedEventHandler(handler);
     }
 
     void SetTexturesForCursor()
@@ -64,15 +82,13 @@ public class MainUI : MonoBehaviour
 
     void ChangeCursorTexture()
     {
-        for (int i = 0; i < 11; i++)
-            if (this.option == ((DataDefine.ICONS)i).ToString())
-                Cursor.SetCursor(textureListforCursor[i], Vector2.zero, CursorMode.ForceSoftware);
+        Cursor.SetCursor(textureListforCursor[(int)option], Vector2.zero, CursorMode.ForceSoftware);
     }
 
     // 아이콘 클릭 시 호출됨
-    void SetSelectedOption(string name)
+    public void SetSelectedOption(DataDefine.ICONS item)
     {
-        this.option = name.ToUpper();
+        this.option = item;
         ChangeCursorTexture();
     }
 
@@ -80,7 +96,7 @@ public class MainUI : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            this.option = "DEFAULT";
+            this.option = DataDefine.ICONS.DEFAULT;
 
             ChangeCursorTexture();
         }
@@ -89,20 +105,35 @@ public class MainUI : MonoBehaviour
     // 농지를 클릭한 경우 작물 생성
     public void OnClickFarmGround(Vector3 pos)
     {
-        Debug.Log(this.option);
-        switch(option)
+        switch (option)
         {
-            case "CORN_SEED":
-                cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CORN);
+            case DataDefine.ICONS.CORN_SEED:
+                if (dataManager.Use(DataDefine.ITEMS.CORN_SEED, -1))
+                {
+                    var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CORN);
+                    if (!result) dataManager.Use(DataDefine.ITEMS.CORN_SEED, 1);
+                }
                 break;
-            case "TURNIP_SEED":
-                cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.TURNIP);
+            case DataDefine.ICONS.TURNIP_SEED:
+                if (dataManager.Use(DataDefine.ITEMS.TURNIP_SEED, -1))
+                {
+                    var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.TURNIP);
+                    if (!result) dataManager.Use(DataDefine.ITEMS.TURNIP_SEED, 1);
+                }
                 break;
-            case "CARROT_SEED":
-                cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CARROT);
+            case DataDefine.ICONS.CARROT_SEED:
+                if (dataManager.Use(DataDefine.ITEMS.CARROT_SEED, -1))
+                {
+                    var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CARROT);
+                    if (!result) dataManager.Use(DataDefine.ITEMS.CARROT_SEED, 1);
+                }
                 break;
-            case "STRAWBERRY_SEED":
-                cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.STRAWBERRY);
+            case DataDefine.ICONS.STRAWBERRY_SEED:
+                if (dataManager.Use(DataDefine.ITEMS.STRAWBERRY_SEED, -1))
+                {
+                    var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.STRAWBERRY);
+                    if (!result) dataManager.Use(DataDefine.ITEMS.STRAWBERRY_SEED, 1);
+                }
                 break;
         }
     }

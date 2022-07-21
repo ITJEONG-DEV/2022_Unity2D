@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &22301776
 RectTransform:
   m_ObjectHideFlags: 0
@@ -179,8 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300120, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300146, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: carrot
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &22301778
 MonoBehaviour:
@@ -293,6 +291,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22301775}
   m_CullTransparentMesh: 1
+--- !u!1 &89711817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 89711818}
+  - component: {fileID: 89711820}
+  - component: {fileID: 89711819}
+  m_Layer: 5
+  m_Name: GOLD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &89711818
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89711817}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1248217103}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 40, y: 75}
+  m_SizeDelta: {x: 65, y: 20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &89711819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89711817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 5
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 50 G
+--- !u!222 &89711820
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89711817}
+  m_CullTransparentMesh: 1
 --- !u!1 &155418589
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &155418590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -349,8 +427,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300172, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300198, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: carrot_seed
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &155418592
 MonoBehaviour:
@@ -689,7 +765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &326857835
 RectTransform:
   m_ObjectHideFlags: 0
@@ -725,8 +801,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300122, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300148, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: strawberry
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &326857837
 MonoBehaviour:
@@ -1903,7 +1977,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &636375498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1938,8 +2012,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300216, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300242, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: watering_can
-  count: -1
   mainUI: {fileID: 1255127286}
 --- !u!114 &636375500
 MonoBehaviour:
@@ -9813,6 +9885,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 241930370}
+  - {fileID: 89711818}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9832,6 +9905,7 @@ GameObject:
   - component: {fileID: 1255127287}
   - component: {fileID: 1255127286}
   - component: {fileID: 1255127288}
+  - component: {fileID: 1255127289}
   m_Layer: 0
   m_Name: MainUI
   m_TagString: Untagged
@@ -9851,13 +9925,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ebabb4e75901b44bcf420449aefdfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crops: {fileID: 1388750268}
   icons: {fileID: 241930369}
-  cropPrefabList:
-  - {fileID: 5886799032520667346, guid: a99c5e261b04344439da52d37095cd97, type: 3}
-  - {fileID: 1710102178746877521, guid: fc8ef0a41a81de24db57354e38f35c62, type: 3}
-  - {fileID: 144259033529661160, guid: b89f4248a157bce42b0d6e9fd002664a, type: 3}
-  - {fileID: 3854904086648495328, guid: e11d082ac0e1ea74fa134f9ef416c8e2, type: 3}
+  gold: {fileID: 0}
   spritesforCursor:
   - {fileID: 21300000, guid: cd69eec6212cb004a8f93ed5e4d98d22, type: 3}
   - {fileID: 21300108, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
@@ -9897,6 +9966,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6deb234a233599499297105d900b29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1255127289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255127285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb76b516ba2881a4ea35beb68f7af221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crops: {fileID: 1388750268}
+  cropPrefabList:
+  - {fileID: 5886799032520667346, guid: a99c5e261b04344439da52d37095cd97, type: 3}
+  - {fileID: 1710102178746877521, guid: fc8ef0a41a81de24db57354e38f35c62, type: 3}
+  - {fileID: 144259033529661160, guid: b89f4248a157bce42b0d6e9fd002664a, type: 3}
+  - {fileID: 3854904086648495328, guid: e11d082ac0e1ea74fa134f9ef416c8e2, type: 3}
 --- !u!1 &1278575234
 GameObject:
   m_ObjectHideFlags: 0
@@ -9917,7 +10004,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1278575235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9953,8 +10040,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300174, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300200, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: strawberry_seed
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &1278575237
 MonoBehaviour:
@@ -10087,7 +10172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1373590414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10161,8 +10246,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300108, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300134, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: corn
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &1373590419
 MonoBehaviour:
@@ -10368,7 +10451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1432949042
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10404,8 +10487,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300118, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300144, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: turnip
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &1432949044
 MonoBehaviour:
@@ -10762,7 +10843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1585435184
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10797,8 +10878,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300208, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300234, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: sickle
-  count: -1
   mainUI: {fileID: 1255127286}
 --- !u!114 &1585435186
 MonoBehaviour:
@@ -10931,7 +11010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1941621006
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10967,8 +11046,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300156, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300182, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: corn_seed
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &1941621008
 MonoBehaviour:
@@ -11181,7 +11258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2055347174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11217,8 +11294,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSprite: {fileID: 21300170, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
   overSprite: {fileID: 21300196, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
-  name: turnip_seed
-  count: 5
   mainUI: {fileID: 1255127286}
 --- !u!114 &2055347176
 MonoBehaviour:

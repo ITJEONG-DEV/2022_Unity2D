@@ -20,6 +20,7 @@ public class DataDefine
     }
     public enum ICONS
     {
+        GOLD=-1,
         DEFAULT = 0,
         CORN,
         CORN_SEED,

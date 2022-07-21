@@ -11,7 +11,6 @@ public class CropManager : MonoBehaviour
     Dictionary<(float, float), DataDefine.GROWING_STATE> currentCropStateList;
 
     public delegate bool cropsStateChangedEventHandler(float x, float y, DataDefine.GROWING_STATE state);
-    public delegate bool cropsAddedEventHandler(float x, float y, DataDefine.CROPS crops);
     public delegate bool cropsRemovalEventHandler(float x, float y, DataDefine.CROPS crops);
 
     void Start()
@@ -27,7 +26,7 @@ public class CropManager : MonoBehaviour
     {
         if (currentCropList.ContainsKey((x, y)))
         {
-            Debug.Log($"ChangeCropState:{state}, ({x}, {y})");
+            //Debug.Log($"ChangeCropState:{state}, ({x}, {y})");
             currentCropStateList[(x, y)] = state;
             return true;
         }
@@ -49,7 +48,7 @@ public class CropManager : MonoBehaviour
         if (currentCropList.ContainsKey((x, y)))
             return false;
 
-        Debug.Log($"AddCropInfo:{type}, ({x}, {y})");
+        //Debug.Log($"AddCropInfo:{type}, ({x}, {y})");
 
         currentCropList[(x, y)] = type;
         currentCropStateList[(x, y)] = DataDefine.GROWING_STATE.none;
@@ -62,7 +61,7 @@ public class CropManager : MonoBehaviour
         if (!AddCropInfo(x, y, type))
             return;
 
-        Debug.Log($"CreateCrops:{type}, ({x}, {y})");
+        //Debug.Log($"CreateCrops:{type}, ({x}, {y})");
         var obj = Instantiate(cropPrefabList[(int)type - 1], new Vector3(x, y, 0), Quaternion.identity);
         obj.name = $"{x}_{y}_{type}_{(int)state}";
         obj.transform.SetParent(crops.transform);
@@ -76,12 +75,12 @@ public class CropManager : MonoBehaviour
     }
 
     // »ý¼º
-    public void CreateCrops(float x, float y, DataDefine.CROPS type)
+    public bool CreateCrops(float x, float y, DataDefine.CROPS type)
     {
         if (!AddCropInfo(x, y, type))
-            return;
+            return false;
 
-        Debug.Log($"CreateCrops:{type}, ({x}, {y})");
+        //Debug.Log($"CreateCrops:{type}, ({x}, {y})");
         var obj = Instantiate(cropPrefabList[(int)type - 1], new Vector3(x, y, 0), Quaternion.identity);
         obj.name = $"{x}_{y}_{type}_0";
         obj.transform.SetParent(crops.transform);
@@ -91,5 +90,7 @@ public class CropManager : MonoBehaviour
         growingCrops.SetCropType(type);
         growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);
         growingCrops.AddCropsRemovalEventHandler(RemoveCropInfo);
+
+        return true;
     }
 }
