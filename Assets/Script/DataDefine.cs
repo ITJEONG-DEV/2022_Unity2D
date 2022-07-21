@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class DataDefine
 {
-    public enum CROPS
+    public enum ICONS
     {
-        CORN = 0,
-        BEET,
+        DEFAULT = 0,
+        CORN,
+        CORN_SEED,
         TURNIP,
+        TURNIP_SEED,
         CARROT,
+        CARROT_SEED,
         STRAWBERRY,
-        PEANUT,
-        APPLE_RED,
-        APPLE_GREEN
-    };
-
-    public Dictionary<int, int> MouseOver = new Dictionary<int, int>();
+        STRAWBERRY_SEED,
+        SICKLE,
+        WATERING_CAN
+    }
 
 }

@@ -8038,6 +8038,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ebabb4e75901b44bcf420449aefdfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: cd69eec6212cb004a8f93ed5e4d98d22, type: 3}
+  - {fileID: 21300108, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300156, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300118, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300170, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300120, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300172, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300122, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300174, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300208, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
+  - {fileID: 21300216, guid: 2700e06d970d112489ff23cfb58c3f78, type: 3}
 --- !u!4 &1255127287
 Transform:
   m_ObjectHideFlags: 0
