@@ -29,7 +29,6 @@ public class MainUI : MonoBehaviour
         // 마우스 커서 모양 변경을 위한 텍스쳐 설정
         SetTexturesForCursor();
 
-
     }
 
     void Update()
