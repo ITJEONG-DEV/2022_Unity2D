@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GrowingCrops : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class GrowingCrops : MonoBehaviour
     float[] range = { 3.0f, 5.0f };
 
     CropManager.cropsStateChangedEventHandler cropsStateChangedEventHandler;
-    CropManager.cropsRemovalEventHandler cropsRemovalEventHandler;
 
     void Start()
     {
@@ -62,11 +62,6 @@ public class GrowingCrops : MonoBehaviour
         cropsStateChangedEventHandler?.Invoke(transform.position.x, transform.position.y, state);
     }
 
-    void Harvest()
-    {
-        cropsRemovalEventHandler?.Invoke(transform.position.x, transform.position.y, crop);
-    }
-
     public void SetCropType(DataDefine.CROPS crop)
     {
         this.crop = crop;
@@ -75,10 +70,5 @@ public class GrowingCrops : MonoBehaviour
     public void AddCropsStateChangedEventHandler(CropManager.cropsStateChangedEventHandler callback)
     {
         this.cropsStateChangedEventHandler += callback;
-    }
-
-    public void AddCropsRemovalEventHandler(CropManager.cropsRemovalEventHandler callback)
-    {
-        this.cropsRemovalEventHandler += callback;
     }
 }

@@ -80,7 +80,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public bool Use(DataDefine.ITEMS item, int num)
+    public bool Add(DataDefine.ITEMS item, int num)
     {
         switch (item)
         {

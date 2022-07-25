@@ -53,4 +53,39 @@ public class DataDefine
         gather
     }
 
+    public static ITEMS GetItemInfo(CROPS crops)
+    {
+        switch(crops)
+        {
+            case CROPS.CORN:
+                return ITEMS.CORN;
+            case CROPS.TURNIP:
+                return ITEMS.TURNIP;
+            case CROPS.CARROT:
+                return ITEMS.CARROT;
+            case CROPS.STRAWBERRY:
+                return ITEMS.STRAWBERRY;
+        }
+
+        return ITEMS.GOLD;
+    }
+
+    public static ITEMS GetSeedInfo(CROPS crops)
+    {
+        switch (crops)
+        {
+            case CROPS.CORN:
+                return ITEMS.CORN_SEED;
+            case CROPS.TURNIP:
+                return ITEMS.TURNIP_SEED;
+            case CROPS.CARROT:
+                return ITEMS.CARROT_SEED;
+            case CROPS.STRAWBERRY:
+                return ITEMS.STRAWBERRY_SEED;
+        }
+
+        return ITEMS.GOLD;
+
+    }
+
 }

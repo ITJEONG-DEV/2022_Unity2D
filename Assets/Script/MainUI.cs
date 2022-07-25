@@ -108,31 +108,58 @@ public class MainUI : MonoBehaviour
         switch (option)
         {
             case DataDefine.ICONS.CORN_SEED:
-                if (dataManager.Use(DataDefine.ITEMS.CORN_SEED, -1))
+                if (dataManager.Add(DataDefine.ITEMS.CORN_SEED, -1))
                 {
                     var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CORN);
-                    if (!result) dataManager.Use(DataDefine.ITEMS.CORN_SEED, 1);
+                    if (!result) dataManager.Add(DataDefine.ITEMS.CORN_SEED, 1);
                 }
                 break;
             case DataDefine.ICONS.TURNIP_SEED:
-                if (dataManager.Use(DataDefine.ITEMS.TURNIP_SEED, -1))
+                if (dataManager.Add(DataDefine.ITEMS.TURNIP_SEED, -1))
                 {
                     var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.TURNIP);
-                    if (!result) dataManager.Use(DataDefine.ITEMS.TURNIP_SEED, 1);
+                    if (!result) dataManager.Add(DataDefine.ITEMS.TURNIP_SEED, 1);
                 }
                 break;
             case DataDefine.ICONS.CARROT_SEED:
-                if (dataManager.Use(DataDefine.ITEMS.CARROT_SEED, -1))
+                if (dataManager.Add(DataDefine.ITEMS.CARROT_SEED, -1))
                 {
                     var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.CARROT);
-                    if (!result) dataManager.Use(DataDefine.ITEMS.CARROT_SEED, 1);
+                    if (!result) dataManager.Add(DataDefine.ITEMS.CARROT_SEED, 1);
                 }
                 break;
             case DataDefine.ICONS.STRAWBERRY_SEED:
-                if (dataManager.Use(DataDefine.ITEMS.STRAWBERRY_SEED, -1))
+                if (dataManager.Add(DataDefine.ITEMS.STRAWBERRY_SEED, -1))
                 {
                     var result = cropManager.CreateCrops(pos.x, pos.y, DataDefine.CROPS.STRAWBERRY);
-                    if (!result) dataManager.Use(DataDefine.ITEMS.STRAWBERRY_SEED, 1);
+                    if (!result) dataManager.Add(DataDefine.ITEMS.STRAWBERRY_SEED, 1);
+                }
+                break;
+            case DataDefine.ICONS.SICKLE:
+                if(cropManager.CheckIsInCrop(pos.x, pos.y) == 1)
+                {
+                    // harvest
+                    DataDefine.CROPS type = cropManager.GetCropInfo(pos.x, pos.y);
+                    var result = cropManager.RemoveCropInfo(pos.x, pos.y);
+
+                    if(result)
+                    {
+                        DataDefine.ITEMS itemType = DataDefine.GetItemInfo(type);
+                        int itemNum = Random.Range(1, 3);
+                        
+                        DataDefine.ITEMS seedType = DataDefine.GetSeedInfo(type);
+
+                        int seedNum = 1;
+                        if (Random.Range(0f, 1f) < 0.85f)
+                            seedNum = 2;
+
+                        if (itemType == DataDefine.ITEMS.GOLD) return;
+
+                        dataManager.Add(itemType, itemNum);
+                        dataManager.Add(seedType, seedNum);
+
+                        Debug.Log($"Harvest:: type: {type}, itemType: {itemType}-{itemNum}, seedType: {seedType}-{seedNum}");
+                    }
                 }
                 break;
         }
