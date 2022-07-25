@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,6 +83,14 @@ public class CropManager : MonoBehaviour
         return currentCropsList[(x, y)];
     }
 
+    public DataDefine.GROWING_STATE GetCropState(float x, float y)
+    {
+        if (!currentCropsList.ContainsKey((x, y)))
+            return DataDefine.GROWING_STATE.none;
+
+        return currentCropsStateList[(x, y)];
+    }
+
     // 불러오기 용
     public void SetCrops(float x, float y, DataDefine.CROPS type, DataDefine.GROWING_STATE state)
     {
@@ -119,6 +126,18 @@ public class CropManager : MonoBehaviour
         var growingCrops = obj.GetComponent<GrowingCrops>();
         growingCrops.SetCropType(type);
         growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);
+
+        return true;
+    }
+
+    public bool Watering(float x, float y)
+    {
+        if (!currentCropsList.ContainsKey((x, y)))
+            return false;
+
+        float term = Random.Range(1.0f, 3.0f)*1000;
+        currentCropsObject[(x, y)].GetComponent<GrowingCrops>().Watering(term);
+        //Debug.Log($"Watering::({x}, {y}) > {term}s");
 
         return true;
     }

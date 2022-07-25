@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GrowingCrops : MonoBehaviour
 {
-    GameObject[] childs;
-
     DataDefine.GROWING_STATE state;
     DataDefine.CROPS crop;
     float remainTime;
@@ -35,6 +32,11 @@ public class GrowingCrops : MonoBehaviour
     {
         this.state = state-1;
         Growing();
+    }
+
+    public void Watering(float term)
+    {
+        remainTime -= term;
     }
 
     void ActiveImage()

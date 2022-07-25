@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class MainUI : MonoBehaviour
 {
@@ -159,6 +156,19 @@ public class MainUI : MonoBehaviour
                         dataManager.Add(seedType, seedNum);
 
                         Debug.Log($"Harvest:: type: {type}, itemType: {itemType}-{itemNum}, seedType: {seedType}-{seedNum}");
+                    }
+                }
+                break;
+            case DataDefine.ICONS.WATERING_CAN:
+                Debug.Log("watering");
+                if (cropManager.CheckIsInCrop(pos.x, pos.y) == 0)
+                {
+                    DataDefine.GROWING_STATE type = cropManager.GetCropState(pos.x, pos.y);
+                    //Debug.Log($"watering:: type {type}, pos ({pos.x}, {pos.y})");
+
+                    if (type >= DataDefine.GROWING_STATE.first && type < DataDefine.GROWING_STATE.finish)
+                    {
+                        var result = cropManager.Watering(pos.x, pos.y);
                     }
                 }
                 break;
