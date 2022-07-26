@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    Data data;
-    Items items;
-    string path;
+    static Data data;
+    static Items items;
+    static string path;
+
+    static CropManager cropManager;
 
     public delegate void itemChanged(DataDefine.ICONS icon, int num);
 
@@ -14,7 +16,9 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        Data data = new Data();
+        cropManager = GetComponent<CropManager>();
+
+        data = new Data();
         items = data.items;
 
         path = Application.dataPath + "/data.json";
@@ -47,10 +51,30 @@ public class DataManager : MonoBehaviour
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY_SEED, items.strawberry_seed);
     }
 
-    void Save()
+    public void Save()
     {
-        data.time = System.DateTime.Now.ToString();
-        File.WriteAllText(path, JsonUtility.ToJson(data));
+        data.time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+        // 저장 시간
+        var timeData = JsonUtility.ToJson(data);
+
+        // 아이템 정보 + 골드
+        var itemData = JsonUtility.ToJson(items);
+
+        // 농작물 정보
+        var currentCropsList = cropManager.GetCurrentCropsList();
+        var currentCropsStateList = cropManager.GetCurrentCropsStateList();
+        
+        foreach (var key in currentCropsStateList.Keys)
+            if (!currentCropsList.ContainsKey(key))
+                currentCropsStateList.Remove(key);
+
+        var currentCropData = JsonUtility.ToJson(currentCropsList);
+        var currentCropState = JsonUtility.ToJson(currentCropsStateList);
+
+        var str = $"{timeData}, {itemData}, {currentCropData}, {currentCropState}";
+
+        File.WriteAllText(path, str);
     }
 
     public int Get(DataDefine.ITEMS item)
@@ -182,6 +206,8 @@ public class Data
         items.turnip_seed = 5;
         items.carrot_seed = 5;
         items.strawberry_seed = 5;
+
+        time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
     }
 }
 

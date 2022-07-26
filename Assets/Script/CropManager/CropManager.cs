@@ -35,6 +35,16 @@ public class CropManager : MonoBehaviour
         return false;
     }
 
+    public Dictionary<(float, float), DataDefine.CROPS> GetCurrentCropsList()
+    {
+        return currentCropsList;
+    }
+
+    public Dictionary<(float, float), DataDefine.GROWING_STATE> GetCurrentCropsStateList()
+    {
+        return currentCropsStateList;
+    }
+
     // crop을 수확한 경우
     public bool RemoveCropInfo(float x, float y)
     {
@@ -46,7 +56,14 @@ public class CropManager : MonoBehaviour
 
         var result = currentCropsList.Remove((x, y));
 
-        if (result) Destroy(currentCropsObject[(x, y)]);
+        if (result)
+        {
+            currentCropsStateList.Remove((x, y));
+
+            var obj = currentCropsObject[(x, y)];
+            currentCropsObject.Remove((x, y));
+            Destroy(obj);
+        }
 
         return result;
     }
