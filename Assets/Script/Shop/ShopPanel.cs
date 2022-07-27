@@ -38,7 +38,7 @@ public class ShopPanel : MonoBehaviour
                 DataDefine.ITEMS.STRAWBERRY_SEED })
             {
                 AddItemList(item);
-                Debug.Log(item);
+                //Debug.Log(item);
             }
             isCreated = true;
         }

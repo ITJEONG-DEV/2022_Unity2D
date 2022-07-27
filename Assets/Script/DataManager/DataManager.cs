@@ -59,7 +59,7 @@ public class DataManager : MonoBehaviour
 
     itemChanged itemChangedEventHandler;
 
-    private void Start()
+    private void Awake()
     {
         cropManager = GetComponent<CropManager>();
 
@@ -68,23 +68,70 @@ public class DataManager : MonoBehaviour
 
         path = Application.dataPath + "/data.json";
 
-        Debug.Log($"path: {path}");
-
-        Invoke("Load", 0.1f);
+        //Debug.Log($"path: {path}");
     }
 
-    void Load()
+    public void Load()
     {
         try
         {
-            string str = File.ReadAllText(path);
-            JsonUtility.FromJson<Data>(str);
+            var txtData = File.ReadAllText(path);
+            //Debug.Log("txtData: " + txtData);
+            var datas = txtData.Split("\n");
+
+            for(int i=0; i<datas.Length; i++)
+            {
+                // time
+                if (i == 0)
+                {
+                    //Debug.Log(i + " " + datas[i]);
+                    var words = datas[i].Split('"');
+
+                    var time = words[3];
+                    data.time = time;
+                    var playTime = words[7];
+                    data.playTime = playTime;
+
+                    //data = JsonUtility.FromJson<Data>(datas[i]);
+                    //Debug.Log($"Set time data> {data.time}, {data.playTime}");
+                }
+                // item
+                else if (i == 1)
+                {
+                    datas[i] = datas[i].Substring(0, datas[i].Length - 2);
+                    Debug.Log(i + " " + datas[i]);
+                    data.items = JsonUtility.FromJson<Items>(datas[i]);
+                    //Debug.Log($"Set item data> gold: {data.items.gold}");
+                }
+                // crops
+                else if(i==2)
+                {
+                    datas[i] = datas[i].Substring(1, datas[i].Length - 3);
+                    //Debug.Log(i + " " + datas[i]);
+
+                    Dictionary<(float, float), DataDefine.CROPS> currentCropsList = new Dictionary<(float, float), DataDefine.CROPS>();
+                    Dictionary<(float, float), DataDefine.GROWING_STATE> currentCropsStateList = new Dictionary<(float, float), DataDefine.GROWING_STATE>();
+
+                    var items = datas[i].Split(", ");
+                    var cropList = new List<List<string>>();
+                    for(int j=0; j<items.Length; j++)
+                    {
+                        var cropData = JsonUtility.FromJson<Serialization<string>>(items[j]).ToList();
+                        cropList.Add(cropData);
+                    }
+
+                    cropManager.SetCurrentCrops(cropList);
+                }
+            }
+            
+            // JsonUtility.FromJson<Data>(data);
         }catch(Exception e)
         {
-            Debug.Log(e.Message);
+            Debug.Log($"loading error: {e.Message}");
         }
 
-        Debug.Log("Load()");
+
+        // Debug.Log("Load()");
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.GOLD, items.gold);
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN, items.corn);
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN_SEED, items.corn_seed);
@@ -155,7 +202,7 @@ public class DataManager : MonoBehaviour
                 currentCropsData += ", ";
         }
 
-        var str = $"{timeData}, {itemData}, {currentCropsData}";
+        var str = $"{timeData},\n{itemData},\n{currentCropsData}";
         Debug.Log(str);
 
         File.WriteAllText(path, str);
@@ -294,7 +341,7 @@ public class Data
 
         time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         playTime = TimeSpan.Zero.ToString();
-        Debug.Log($"time: {time}");
+        //Debug.Log($"time: {time}");
     }
 }
 

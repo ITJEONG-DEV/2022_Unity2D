@@ -11,10 +11,14 @@ public class GrowingCrops : MonoBehaviour
 
     CropManager.cropsStateChangedEventHandler cropsStateChangedEventHandler;
 
-    void Start()
+    void Awake()
     {
-        state = DataDefine.GROWING_STATE.none;
-        Growing();
+        state = DataDefine.GROWING_STATE.first;
+        ActiveImage();
+
+        remainTime = Random.Range(range[0], range[1]);
+        cropsStateChangedEventHandler?.Invoke(transform.position.x, transform.position.y, this.state);
+        // Growing();
     }
 
     void Update()
@@ -31,6 +35,7 @@ public class GrowingCrops : MonoBehaviour
     public void SetState(DataDefine.GROWING_STATE state)
     {
         this.state = state-1;
+        //Debug.Log($"state: {state}, current state: {this.state}");
         Growing();
     }
 
@@ -43,10 +48,16 @@ public class GrowingCrops : MonoBehaviour
     {
         for(int i=0; i<this.transform.childCount; i++)
         {
-            if(i==(int)state)
+            if(this.transform.GetChild(i).name==((int)this.state+1).ToString())
+            {
                 this.transform.GetChild(i).gameObject.SetActive(true);
+
+                //Debug.Log($"ActiveImage: {i}, name: {this.transform.GetChild(i).name}, state: {this.state}");
+            }
             else
+            {
                 this.transform.GetChild(i).gameObject.SetActive(false);
+            }
         }
     }
 
@@ -54,14 +65,17 @@ public class GrowingCrops : MonoBehaviour
     {
         var name = this.gameObject.name;
         var name_words = name.Split('_');
-        name_words[name_words.Length-1] = ((int)++state).ToString();
+        //int statenum = int.Parse(name_words[name_words.Length - 1]);
+
+        name_words[name_words.Length-1] = ((int)(++this.state)).ToString();
         this.gameObject.name = string.Join('_', name_words);
-        
+        //Debug.Log($"words: {name_words[name_words.Length - 1]}, new name: {this.gameObject.name}");
+
         ActiveImage();
 
         remainTime = Random.Range(range[0], range[1]);
 
-        cropsStateChangedEventHandler?.Invoke(transform.position.x, transform.position.y, state);
+        cropsStateChangedEventHandler?.Invoke(transform.position.x, transform.position.y, this.state);
     }
 
     public void SetCropType(DataDefine.CROPS crop)

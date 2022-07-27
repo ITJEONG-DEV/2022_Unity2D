@@ -34,6 +34,33 @@ public class CropManager : MonoBehaviour
 
         return false;
     }
+    public void SetCurrentCrops(List<List<string>> cropList)
+    {
+        //Debug.Log($"SetCurrentCrops:: {crops.transform.childCount}");
+        currentCropsList.Clear();
+        currentCropsStateList.Clear();
+        //while(crops.transform.childCount > 0)
+        for(int i=0; i<crops.transform.childCount; i++)
+        {
+            var child = crops.transform.GetChild(i);
+            //Debug.Log($"Destory: {child.name}");
+            Destroy(child.gameObject);
+        }
+        currentCropsObject.Clear();
+
+        for(int i=0; i<cropList.Count; i++)
+        {
+            var key = (float.Parse(cropList[i][0]), float.Parse(cropList[i][1]));
+            var crops = (DataDefine.CROPS)int.Parse(cropList[i][2]);
+            var state = (DataDefine.GROWING_STATE)int.Parse(cropList[i][3]);
+
+            SetCrops(key.Item1, key.Item2, crops, state);
+            //currentCropsList.Add(key, crops);
+            //currentCropsStateList.Add(key, state);
+        }
+
+    }
+
 
     public Dictionary<(float, float), DataDefine.CROPS> GetCurrentCropsList()
     {
@@ -117,13 +144,14 @@ public class CropManager : MonoBehaviour
         //Debug.Log($"CreateCrops:{type}, ({x}, {y})");
         var obj = Instantiate(cropPrefabList[(int)type - 1], new Vector3(x, y, 0), Quaternion.identity);
         obj.name = $"{x}_{y}_{type}_{(int)state}";
+        //Debug.Log($"float: ({x}, {y}), type: {type}, state: {state}, name: {obj.name}");
         obj.transform.SetParent(crops.transform);
 
         // 작물 타입 설정, 콜백함수 등록
         var growingCrops = obj.GetComponent<GrowingCrops>();
+        growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);
         growingCrops.SetCropType(type);
         growingCrops.SetState(state);
-        growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);
     }
 
     // 생성

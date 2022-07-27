@@ -33,12 +33,12 @@ public class PointerEventsController : MonoBehaviour, IPointerEnterHandler, IPoi
 
     void RenewCountText(DataDefine.ICONS icon, int num)
     {
-        //Debug.Log($"RenewCountText({icon}, {num})");
+        Debug.Log($"RenewCountText({icon}, {num})");
         if (this.icon == icon)
             countText.text = num.ToString();
     }
 
-    void Start()
+    void Awake()
     {
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
 
