@@ -147,6 +147,8 @@ public class CropManager : MonoBehaviour
         //Debug.Log($"float: ({x}, {y}), type: {type}, state: {state}, name: {obj.name}");
         obj.transform.SetParent(crops.transform);
 
+        currentCropsObject[(x, y)] = obj;
+
         // 작물 타입 설정, 콜백함수 등록
         var growingCrops = obj.GetComponent<GrowingCrops>();
         growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);

@@ -108,7 +108,7 @@ public class DataManager : MonoBehaviour
                 // item
                 else if (i == 1)
                 {
-                    datas[i] = datas[i].Substring(0, datas[i].Length - 2);
+                    datas[i] = datas[i].Substring(0, datas[i].Length - 1);
                     //Debug.Log(i + " " + datas[i]);
                     data.items = JsonUtility.FromJson<Items>(datas[i]);
                     items = data.items;
@@ -117,7 +117,7 @@ public class DataManager : MonoBehaviour
                 // crops
                 else if(i==2)
                 {
-                    datas[i] = datas[i].Substring(1, datas[i].Length - 3);
+                    datas[i] = datas[i].Substring(1, datas[i].Length - 2);
                     //Debug.Log(i + " " + datas[i]);
 
                     Dictionary<(float, float), DataDefine.CROPS> currentCropsList = new Dictionary<(float, float), DataDefine.CROPS>();
@@ -213,7 +213,7 @@ public class DataManager : MonoBehaviour
                 currentCropsData += ", ";
         }
 
-        var str = $"{timeData},\n{itemData},\n{currentCropsData}";
+        var str = $"{timeData},\n{itemData},\n{currentCropsData}\n";
         Debug.Log(str);
 
         File.WriteAllText(path, str);
