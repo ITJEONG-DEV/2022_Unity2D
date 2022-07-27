@@ -66,6 +66,16 @@ public class DataManager : MonoBehaviour
         data = new Data();
         items = data.items;
 
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.GOLD, items.gold);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN, items.corn);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CORN_SEED, items.corn_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP, items.turnip);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.TURNIP_SEED, items.turnip_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT, items.carrot);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.CARROT_SEED, items.carrot_seed);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY, items.strawberry);
+        itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY_SEED, items.strawberry_seed);
+
         path = Application.dataPath + "/data.json";
 
         //Debug.Log($"path: {path}");
@@ -99,9 +109,10 @@ public class DataManager : MonoBehaviour
                 else if (i == 1)
                 {
                     datas[i] = datas[i].Substring(0, datas[i].Length - 2);
-                    Debug.Log(i + " " + datas[i]);
+                    //Debug.Log(i + " " + datas[i]);
                     data.items = JsonUtility.FromJson<Items>(datas[i]);
-                    //Debug.Log($"Set item data> gold: {data.items.gold}");
+                    items = data.items;
+                    //Debug.Log($"Set item data> gold: {data.items.gold}, corn: {data.items.corn}, turnip: {data.items.turnip}");
                 }
                 // crops
                 else if(i==2)

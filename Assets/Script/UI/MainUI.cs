@@ -14,7 +14,7 @@ public class MainUI : MonoBehaviour
 
     DataDefine.ICONS option = DataDefine.ICONS.DEFAULT;
 
-    void Start()
+    void Awake()
     {
         cropManager = GetComponent<CropManager>();
         dataManager = GetComponent<DataManager>();
@@ -37,10 +37,11 @@ public class MainUI : MonoBehaviour
         OnClickESC();
     }
 
-    void RenewGoldText(DataDefine.ICONS icons, int numm)
+    void RenewGoldText(DataDefine.ICONS icons, int num)
     {
+        //Debug.Log($"RenewGoldText, {icons}, {num}");
         if (icons == DataDefine.ICONS.GOLD)
-            gold.text = numm + " G";
+            gold.text = num + " G";
 
     }
 
