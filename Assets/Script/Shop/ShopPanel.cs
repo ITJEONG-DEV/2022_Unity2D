@@ -108,7 +108,7 @@ public class ShopPanel : MonoBehaviour
             obj.transform.Find("NUM").GetComponent<Text>().text = dataManager.Get(item).ToString();
             gold.GetComponent<Text>().text = $"{dataManager.Get(DataDefine.ITEMS.GOLD)} G";
 
-            Debug.Log($"Buy {item}, Get {price_sell} G. current: {dataManager.Get(item)}, {dataManager.Get(DataDefine.ITEMS.GOLD)} G");
+            //Debug.Log($"Buy {item}, Get {price_sell} G. current: {dataManager.Get(item)}, {dataManager.Get(DataDefine.ITEMS.GOLD)} G");
         }
     }
 }

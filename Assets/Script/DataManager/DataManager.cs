@@ -1,6 +1,51 @@
 using System;
 using System.IO;
+using System.Globalization;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class Serialization<T>
+{
+    [SerializeField]
+    List<T> target;
+    public List<T> ToList() { return target; }
+
+    public Serialization(List<T> target) { this.target = target; }
+}
+
+[Serializable]
+public class Serialization<TKey, TValue> : ISerializationCallbackReceiver
+{
+    [SerializeField]
+    List<TKey> keys;
+
+    [SerializeField]
+    List<TValue> values;
+
+    Dictionary<TKey, TValue> target;
+    public Dictionary<TKey, TValue> ToDictionary() { return target; }
+
+    public Serialization(Dictionary<TKey, TValue> target)
+    {
+        this.target = target;
+    }
+ 
+    public void OnBeforeSerialize()
+    {
+        keys = new List<TKey>(target.Keys);
+        values = new List<TValue>(target.Values);
+    }
+
+    public void OnAfterDeserialize()
+    {
+        var count = Math.Min(keys.Count, values.Count);
+        target = new Dictionary<TKey, TValue>(count);
+        for(var i=0; i<count; ++i)
+            target.Add(keys[i], values[i]);
+    }
+}
+
 
 public class DataManager : MonoBehaviour
 {
@@ -53,7 +98,18 @@ public class DataManager : MonoBehaviour
 
     public void Save()
     {
+        // save time
+        var startTime = data.time;
         data.time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+        // play time
+        var differ = Convert.ToDateTime(data.time) - Convert.ToDateTime(startTime);
+        var playTime = TimeSpan.Parse(data.playTime);
+        playTime += differ;
+
+        data.playTime = playTime.ToString();
+
+        //Debug.Log($"playTime: {playTime}, data.playTime: {data.playTime}");
 
         // 저장 시간
         var timeData = JsonUtility.ToJson(data);
@@ -65,14 +121,42 @@ public class DataManager : MonoBehaviour
         var currentCropsList = cropManager.GetCurrentCropsList();
         var currentCropsStateList = cropManager.GetCurrentCropsStateList();
         
-        foreach (var key in currentCropsStateList.Keys)
-            if (!currentCropsList.ContainsKey(key))
-                currentCropsStateList.Remove(key);
+        //foreach (var key in currentCropsStateList.Keys)
+        //    if (!currentCropsList.ContainsKey(key))
+        //        currentCropsStateList.Remove(key);
+        //var currentCropData = JsonUtility.ToJson(new Serialization<(float, float), DataDefine.CROPS>(currentCropsList));
+        //var currentCropState = JsonUtility.ToJson(new Serialization<(float, float), DataDefine.GROWING_STATE>(currentCropsStateList));
 
-        var currentCropData = JsonUtility.ToJson(currentCropsList);
-        var currentCropState = JsonUtility.ToJson(currentCropsStateList);
+        List<string>[] currentCrops = new List<string>[currentCropsList.Count];
+        int i = 0;
+        foreach(var key in currentCropsList.Keys)
+        {
+            currentCrops[i] = new List<string>();
+            string x = key.Item1.ToString();
+            string y = key.Item2.ToString();
+            string crops = ((int)currentCropsList[key]).ToString();
+            string state = ((int)currentCropsStateList[key]).ToString();
 
-        var str = $"{timeData}, {itemData}, {currentCropData}, {currentCropState}";
+            currentCrops[i].Add(x);
+            currentCrops[i].Add(y);
+            currentCrops[i].Add(crops);
+            currentCrops[i].Add(state);
+
+            i++;
+        }
+
+        var currentCropsData = "{";
+        for(i=0; i<currentCrops.Length; i++)
+        {
+            currentCropsData += JsonUtility.ToJson(new Serialization<string>(currentCrops[i]));
+            if (i == currentCrops.Length - 1)
+                currentCropsData += "}";
+            else
+                currentCropsData += ", ";
+        }
+
+        var str = $"{timeData}, {itemData}, {currentCropsData}";
+        Debug.Log(str);
 
         File.WriteAllText(path, str);
     }
@@ -197,6 +281,7 @@ public class Data
 {
     public Items items;
     public string time;
+    public string playTime;
 
     public Data()
     {
@@ -208,6 +293,8 @@ public class Data
         items.strawberry_seed = 5;
 
         time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        playTime = TimeSpan.Zero.ToString();
+        Debug.Log($"time: {time}");
     }
 }
 
