@@ -8,6 +8,9 @@ public class GrowingCrops : MonoBehaviour
     DataDefine.CROPS crop;
     float remainTime;
     float[] range = { 3.0f, 5.0f };
+    bool isWatering = false;
+
+    public bool IsWatering { get { return isWatering; } set { isWatering = value; } }
 
     CropManager.cropsStateChangedEventHandler cropsStateChangedEventHandler;
 
@@ -39,9 +42,17 @@ public class GrowingCrops : MonoBehaviour
         Growing();
     }
 
-    public void Watering(float term)
+    public bool Watering(float term)
     {
-        remainTime -= term;
+        if(this.state > DataDefine.GROWING_STATE.none && this.state < DataDefine.GROWING_STATE.finish)
+        {
+            remainTime -= term;
+            isWatering = true;
+
+            return true;
+        }
+
+        return false;
     }
 
     void ActiveImage()

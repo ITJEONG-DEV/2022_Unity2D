@@ -9,6 +9,7 @@ public class CropManager : MonoBehaviour
     Dictionary<(float, float), DataDefine.CROPS> currentCropsList;
     Dictionary<(float, float), DataDefine.GROWING_STATE> currentCropsStateList;
     Dictionary<(float, float), GameObject> currentCropsObject;
+    Dictionary<(float, float), bool> currentCropsIsWatering;
 
     public delegate bool cropsStateChangedEventHandler(float x, float y, DataDefine.GROWING_STATE state);
     public delegate bool cropsRemovalEventHandler(float x, float y);
@@ -20,6 +21,7 @@ public class CropManager : MonoBehaviour
         currentCropsList = new Dictionary<(float, float), DataDefine.CROPS>();
         currentCropsStateList = new Dictionary<(float, float), DataDefine.GROWING_STATE>();
         currentCropsObject = new Dictionary<(float, float), GameObject>();
+        currentCropsIsWatering = new Dictionary<(float, float), bool>();
     }
 
     // crop state가 변경된 경우
@@ -53,14 +55,19 @@ public class CropManager : MonoBehaviour
             var key = (float.Parse(cropList[i][0]), float.Parse(cropList[i][1]));
             var crops = (DataDefine.CROPS)int.Parse(cropList[i][2]);
             var state = (DataDefine.GROWING_STATE)int.Parse(cropList[i][3]);
+            var isWatering = bool.Parse(cropList[i][4]);
 
-            SetCrops(key.Item1, key.Item2, crops, state);
+            SetCrops(key.Item1, key.Item2, crops, state, isWatering);
             //currentCropsList.Add(key, crops);
             //currentCropsStateList.Add(key, state);
         }
 
     }
 
+    public Dictionary<(float, float), bool> GetCurrentCropsIsWateringList()
+    {
+        return currentCropsIsWatering;
+    }
 
     public Dictionary<(float, float), DataDefine.CROPS> GetCurrentCropsList()
     {
@@ -73,10 +80,10 @@ public class CropManager : MonoBehaviour
     }
 
     // crop을 수확한 경우
-    public bool RemoveCropInfo(float x, float y)
+    public int RemoveCropInfo(float x, float y)
     {
         if (!currentCropsList.ContainsKey((x, y)))
-            return false;
+            return -1;
 
         var type = currentCropsList[(x, y)];
         //Debug.Log($"RemoveCropInfo:{type}, ({x}, {y})");
@@ -88,11 +95,24 @@ public class CropManager : MonoBehaviour
             currentCropsStateList.Remove((x, y));
 
             var obj = currentCropsObject[(x, y)];
+
+            var watering = false;
+            if (currentCropsIsWatering.ContainsKey((x, y)))
+            {
+                watering = true;
+                currentCropsIsWatering.Remove((x, y));
+            }
+
             currentCropsObject.Remove((x, y));
             Destroy(obj);
+
+            if (watering)
+                return 1;
+            else
+                return 0;
         }
 
-        return result;
+        return -1;
     }
 
     // crop을 추가한 경우
@@ -136,7 +156,7 @@ public class CropManager : MonoBehaviour
     }
 
     // 불러오기 용
-    public void SetCrops(float x, float y, DataDefine.CROPS type, DataDefine.GROWING_STATE state)
+    public void SetCrops(float x, float y, DataDefine.CROPS type, DataDefine.GROWING_STATE state, bool isWatering=false)
     {
         if (!AddCropInfo(x, y, type))
             return;
@@ -151,6 +171,13 @@ public class CropManager : MonoBehaviour
 
         // 작물 타입 설정, 콜백함수 등록
         var growingCrops = obj.GetComponent<GrowingCrops>();
+
+        if (isWatering)
+        {
+            currentCropsIsWatering[(x, y)] = isWatering;
+            growingCrops.IsWatering = isWatering;
+        }
+
         growingCrops.AddCropsStateChangedEventHandler(ChangeCropState);
         growingCrops.SetCropType(type);
         growingCrops.SetState(state);
@@ -183,9 +210,12 @@ public class CropManager : MonoBehaviour
             return false;
 
         float term = Random.Range(1.0f, 3.0f)*1000;
-        currentCropsObject[(x, y)].GetComponent<GrowingCrops>().Watering(term);
+        var result = currentCropsObject[(x, y)].GetComponent<GrowingCrops>().Watering(term);
         //Debug.Log($"Watering::({x}, {y}) > {term}s");
 
-        return true;
+        if (result)
+            currentCropsIsWatering[(x, y)] = true;
+
+        return result;
     }
 }

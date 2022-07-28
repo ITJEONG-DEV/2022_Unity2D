@@ -178,6 +178,7 @@ public class DataManager : MonoBehaviour
         // ≥Û¿€π∞ ¡§∫∏
         var currentCropsList = cropManager.GetCurrentCropsList();
         var currentCropsStateList = cropManager.GetCurrentCropsStateList();
+        var currentCropsIsWatering = cropManager.GetCurrentCropsIsWateringList();
         
         //foreach (var key in currentCropsStateList.Keys)
         //    if (!currentCropsList.ContainsKey(key))
@@ -195,10 +196,18 @@ public class DataManager : MonoBehaviour
             string crops = ((int)currentCropsList[key]).ToString();
             string state = ((int)currentCropsStateList[key]).ToString();
 
+            bool isWatering;
+            string watering;
+            if (currentCropsIsWatering.TryGetValue(key, out isWatering))
+                watering = isWatering.ToString();
+            else
+                watering = false.ToString();
+
             currentCrops[i].Add(x);
             currentCrops[i].Add(y);
             currentCrops[i].Add(crops);
             currentCrops[i].Add(state);
+            currentCrops[i].Add(watering);
 
             i++;
         }

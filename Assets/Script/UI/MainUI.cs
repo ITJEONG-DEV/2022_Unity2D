@@ -139,15 +139,24 @@ public class MainUI : MonoBehaviour
                     DataDefine.CROPS type = cropManager.GetCropInfo(pos.x, pos.y);
                     var result = cropManager.RemoveCropInfo(pos.x, pos.y);
 
-                    if(result)
+                    if(result>=0)
                     {
                         DataDefine.ITEMS itemType = DataDefine.GetItemInfo(type);
-                        int itemNum = Random.Range(1, 3);
+
+                        int itemNum;
+                        if (result == 1)
+                            itemNum = Random.Range(2, 4);
+                        else
+                            itemNum = Random.Range(1, 3);
                         
                         DataDefine.ITEMS seedType = DataDefine.GetSeedInfo(type);
 
+                        float threshold = 0.85f;
+                        if (result == 1)
+                            threshold = 0.5f;
+
                         int seedNum = 1;
-                        if (Random.Range(0f, 1f) < 0.85f)
+                        if (Random.Range(0f, 1f) < threshold)
                             seedNum = 2;
 
                         if (itemType == DataDefine.ITEMS.GOLD) return;
