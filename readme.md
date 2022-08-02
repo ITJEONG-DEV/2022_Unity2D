@@ -1,8 +1,11 @@
 # 220720_2D
 - [1_Farming 프로젝트](#1_Farming-프로젝트)
-
-## 1_Farming 프로젝트
+- [2_Sunnyland 프로젝트](#2_Sunnyland-프로젝트)
+<br>
+<br>
 ---
+## 1_Farming 프로젝트
+<br>
 #### 프로젝트 개요
 ###### 유니티 무료 애셋인 [Basic Pixel Farm Asset Pack](https://assetstore.unity.com/packages/2d/characters/basic-pixel-farm-asset-pack-64192)을 사용하여 간단한 농사 게임 구현
 ![1_Farming 게임 화면](images/1_Farming.png)
@@ -25,5 +28,16 @@
 | 220728 | 저장된 정보 불러와서 이어하기 | 저장된 json 파일 파싱하여 DataManager, CropManager, UI와 연동, 기타 절차에 따라 생기는 버그들 수정 |
 | 220728 | 물 주기2 | 물을 줬는지 확인하는 변수와 루틴 추가, 작물 수확 시 여부에 따라 확률 변동, 저장 데이터 추가 & 구현 |
 
-
+<br>
+<br>
 ----------
+## 2_Sunnyland 프로젝트
+<br>
+#### 프로젝트 개요
+###### 유니티 무료 애셋인 [Sunny land](https://assetstore.unity.com/packages/2d/characters/sunny-land-103349)를 사용하여 간단한 2D 플랫폼 게임 구현
+![2_Sunnyland 맵](images/2_Sunnyland.png)
+<br>
+#### 작업 일지
+| 날짜 | 항목 | 상세 |
+| :---: | :---: | :---: |
+| 220802 | 애셋 뜯어보기 | Sunny land 애셋 뜯어보고 맵 구상 |
