@@ -76,7 +76,7 @@ public class DataManager : MonoBehaviour
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY, items.strawberry);
         itemChangedEventHandler?.Invoke(DataDefine.ICONS.STRAWBERRY_SEED, items.strawberry_seed);
 
-        path = Application.dataPath + "/data.json";
+        path = Application.dataPath + "/1_Farming/data.json";
 
         //Debug.Log($"path: {path}");
     }
