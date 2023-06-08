@@ -1,7 +1,18 @@
 # 220720_2D
+
+유니티 무료 애셋을 이용하여 간단한 게임 구현
+
 - [1_Farming 프로젝트](#1_farming-프로젝트)
 - [2_Sunnyland 프로젝트](#2_sunnyland-프로젝트)
 <br>
+<br>
+
+## 기술 스택
+
+| Unity | C# |
+| :--------: | :--------: |
+|   <img src="https://raw.githubusercontent.com/ITJEONG-DEV/README/main/.images/unity.png" width="200" height="180"/>   |   <img src="https://raw.githubusercontent.com/ITJEONG-DEV/README/cd763909be113b37c44ab5490a4e9007e2c00920/.images/csharp.svg" width="200" height="200"/>    |
+
 <br>
 
 ## 1_Farming 프로젝트
